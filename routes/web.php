@@ -20,36 +20,8 @@ use DebugBar\DebugBar;
 |
 */
 //TEST
-Route::get('welcome',function(){
+Route::get('/',function(){
 
     return view('welcome');
 })->name('welcome');
 //
-Route::get('/', function () {
-    return Redirect::to('home');
-});
-Route::get('intro', function () {
-    return view('intro');
-});
-Route::get('home', function () {
-    return view('home');
-
-});
-Route::get('product',function(){
-    return view('product');
-});
-Route::get('price',[ProductController::class,'display']);
-Route::get('contact',function(){
-
-    return view('contact');
-});
-Route::post('add',[ContactController::class,'add']);
-Route::post('orderRequest',[OrderController::class,'add']);
-Route::get('index',function(){
-    return view('index');
-});
-Route::get('productFil',[ProductController::class,'filter']);
-Route::post('login',[LoginController::class,'display']);
-//Route::get('profile',function(){
-  ///   return view('profile');
-//});
