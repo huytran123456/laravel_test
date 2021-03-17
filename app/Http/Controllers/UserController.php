@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-
+use Illuminate\Pagination\Paginator;
 class UserController extends Controller
 {
     /**
@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        $yo=User::all();
+        $yo=User::paginate(3);
         return response()->json($yo);
     }
 
@@ -38,11 +38,9 @@ class UserController extends Controller
     {
         //
        $user=User::insert([
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'email'=>$request['email'],
-            'phone'=>$request['phone'],
-            'password'=>md5($request['password'])
+           $request->only(['last_name','first_name','email','phone'])
+
+            +['password'=>md5($request['password'])]
        ]);
        return response()->json($user);
     }
@@ -56,7 +54,9 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        return response()->json(User::findOrFail($id));
+        $user=User::find($id);
+        $result=($user)?1:0;
+        return response()->json(['result'=>$result,'user'=>$user]);
     }
 
     /**
@@ -69,13 +69,10 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $user=User::where('id',$id)->update([
-            'first_name'=>$request['first_name'],
-            'last_name'=>$request['last_name'],
-            'email'=>$request['email'],
-            'phone'=>$request['phone'],
-            'password'=>md5($request['password'])
-        ]);
+        $user=User::where('id',$id)->update(
+            $request->only('first_name','last_name','email')
+         //   [$request['email']]
+        );
         return response()->json($user);
     }
 
@@ -88,7 +85,9 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
-        $user=User::destroy($id);
-        return response()->json($user);
+        //$user=User::destroy($id);
+        $user=User::find($id);
+        $result=($user)?User::where('id',$id)->update(['isDelete'=>1]):'fail';
+        return response()->json($result);
     }
 }
