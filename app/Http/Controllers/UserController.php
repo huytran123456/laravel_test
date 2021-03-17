@@ -38,7 +38,7 @@ class UserController extends Controller
     {
         //
        $user=User::insert([
-           $request->only(['last_name','first_name','email','phone'])
+           $request->only(['last_name','first_name','email'])
 
             +['password'=>md5($request['password'])]
        ]);
@@ -73,7 +73,7 @@ class UserController extends Controller
             $request->only('first_name','last_name','email')
          //   [$request['email']]
         );
-        return response()->json($user);
+        return response()->json($user,Response::HTTP_ACCEPTED);
     }
 
     /**
