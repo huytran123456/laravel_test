@@ -2,10 +2,7 @@
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Barryvdh\Debugbar\Twig\Extension\Debug;
 use DebugBar\DebugBar;
 
@@ -25,3 +22,4 @@ Route::get('/',function(){
     return view('welcome');
 })->name('welcome');
 //
+

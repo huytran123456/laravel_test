@@ -42,7 +42,7 @@ class UserController extends Controller
 
             +['password'=>md5($request['password'])]
        ]);
-       return response()->json($user);
+       return response()->json($user,200);
     }
 
     /**
@@ -70,7 +70,7 @@ class UserController extends Controller
     {
         //
         $user=User::where('id',$id)->update(
-            $request->only('first_name','last_name','email')
+            $request->only('first_name','last_name','email','phone')
          //   [$request['email']]
         );
         return response()->json($user,Response::HTTP_ACCEPTED);
