@@ -18,8 +18,8 @@ use DebugBar\DebugBar;
 */
 //TEST
 Route::get('/',function(){
-
-    return view('welcome');
+    $pag=null;
+    return view('welcome',['pag'=>$pag]);
 })->name('welcome');
 //
 

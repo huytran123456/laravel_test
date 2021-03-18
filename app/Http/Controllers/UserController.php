@@ -31,7 +31,10 @@ class UserController extends Controller
     public function index():JsonResponse
     {
         //
-        $yo=User::paginate(3);
+        $yo=DB::table('users')->paginate(15);
+        //dd($yo);
+      //  var_dump($yo);die;
+      //session('users',$yo);
         return response()->json($yo,200);
     }
 
@@ -60,9 +63,9 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user=User::find($id);
+        $user=User::where('id',$id)->get();
         $result=($user)?1:0;
-        return response()->json(['result'=>$result,'user'=>$user]);
+        return response()->json(['result'=>$result,'data'=>$user]);
     }
 
     /**

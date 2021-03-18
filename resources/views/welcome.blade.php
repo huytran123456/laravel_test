@@ -39,24 +39,8 @@
               </tr>
             </thead>
             <tbody id='tee'>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+
+
             </tbody>
           </table>
         </div>
@@ -144,6 +128,17 @@
                             //return response
 
                             console.log(response)
+                            myObj = response.data.data;
+                      txt = "<tr>"
+                    for (x in myObj) {
+                        txt +=  "<th scope='row'>"+  myObj[x].id + "</th>";
+                 txt += "<td>" + myObj[x].first_name + "</td>";
+                 txt += "<td>" + myObj[x].last_name + "</td>";
+                 txt += "<td>" + myObj[x].email + "</td>";
+                 txt+="</tr>"
+                      }
+                txt += "</table>"
+                document.getElementById("tee").innerHTML = txt;
                             //wait(10000)
                          //   auth.login(response.data.token.access_token,response.data.user);
                       //      this.$router.push('/index');
@@ -154,16 +149,27 @@
          // console.log(res)
          // wait(6000)
         }
-        function All(){
+      async  function All(){
        //     var fil=document.getElementById('filter').value
            // console.log(fil)
           //  wait(5000)
-          res=   axios.get('/api/users')
+          res= await  axios.get('/api/users')
           .then(response=>{
             if (response.status==200) {
                             //return response
 
                             console.log(response)
+                    myObj = response.data.data;
+                      txt = "<tr>"
+                    for (x in myObj) {
+                        txt +=  "<th scope='row'>"+  myObj[x].id + "</th>";
+                 txt += "<td>" + myObj[x].first_name + "</td>";
+                 txt += "<td>" + myObj[x].last_name + "</td>";
+                 txt += "<td>" + myObj[x].email + "</td>";
+                 txt+="</tr>"
+                      }
+                txt += "</table>"
+                document.getElementById("tee").innerHTML = txt;
                            // var rett=JSON.parse(response.data)
                          //  console.log(rett)
                           //  wait(10000)
@@ -175,6 +181,7 @@
           })
          // console.log(res)
          // wait(6000)
+            return
         }
     </script>
     </body>
