@@ -672,6 +672,172 @@
       'table' => 'failed_jobs',
     ),
   ),
+  'scribe' => 
+  array (
+    'title' => NULL,
+    'description' => '',
+    'routes' => 
+    array (
+      0 => 
+      array (
+        'match' => 
+        array (
+          'domains' => 
+          array (
+            0 => '*',
+          ),
+          'prefixes' => 
+          array (
+            0 => '*',
+          ),
+          'versions' => 
+          array (
+            0 => 'v1',
+          ),
+        ),
+        'include' => 
+        array (
+        ),
+        'exclude' => 
+        array (
+        ),
+        'apply' => 
+        array (
+          'headers' => 
+          array (
+            'Content-Type' => 'application/json',
+            'Accept' => 'application/json',
+          ),
+          'response_calls' => 
+          array (
+            'methods' => 
+            array (
+              0 => 'GET',
+            ),
+            'config' => 
+            array (
+              'app.env' => 'documentation',
+            ),
+            'queryParams' => 
+            array (
+            ),
+            'bodyParams' => 
+            array (
+            ),
+            'fileParams' => 
+            array (
+            ),
+            'cookies' => 
+            array (
+            ),
+          ),
+        ),
+      ),
+    ),
+    'type' => 'static',
+    'static' => 
+    array (
+      'output_path' => 'public/docs',
+    ),
+    'laravel' => 
+    array (
+      'add_routes' => true,
+      'docs_url' => '/docs',
+      'middleware' => 
+      array (
+      ),
+    ),
+    'interactive' => true,
+    'auth' => 
+    array (
+      'enabled' => false,
+      'default' => false,
+      'in' => 'bearer',
+      'name' => 'key',
+      'use_value' => NULL,
+      'placeholder' => '{YOUR_AUTH_KEY}',
+      'extra_info' => 'You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.',
+    ),
+    'intro_text' => 'This documentation aims to provide all the information you need to work with our API.
+
+<aside>As you scroll, you\'ll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
+You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>',
+    'example_languages' => 
+    array (
+      0 => 'bash',
+      1 => 'javascript',
+    ),
+    'base_url' => NULL,
+    'postman' => 
+    array (
+      'enabled' => true,
+      'overrides' => 
+      array (
+      ),
+    ),
+    'openapi' => 
+    array (
+      'enabled' => true,
+      'overrides' => 
+      array (
+      ),
+    ),
+    'default_group' => 'Endpoints',
+    'logo' => false,
+    'router' => 'laravel',
+    'faker_seed' => NULL,
+    'strategies' => 
+    array (
+      'metadata' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Metadata\\GetFromDocBlocks',
+      ),
+      'urlParameters' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\UrlParameters\\GetFromLaravelAPI',
+        1 => 'Knuckles\\Scribe\\Extracting\\Strategies\\UrlParameters\\GetFromLumenAPI',
+        2 => 'Knuckles\\Scribe\\Extracting\\Strategies\\UrlParameters\\GetFromUrlParamTag',
+      ),
+      'queryParameters' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\QueryParameters\\GetFromQueryParamTag',
+      ),
+      'headers' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Headers\\GetFromRouteRules',
+        1 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Headers\\GetFromHeaderTag',
+      ),
+      'bodyParameters' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\BodyParameters\\GetFromFormRequest',
+        1 => 'Knuckles\\Scribe\\Extracting\\Strategies\\BodyParameters\\GetFromBodyParamTag',
+      ),
+      'responses' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\UseTransformerTags',
+        1 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\UseResponseTag',
+        2 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\UseResponseFileTag',
+        3 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\UseApiResourceTags',
+        4 => 'Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls',
+      ),
+      'responseFields' => 
+      array (
+        0 => 'Knuckles\\Scribe\\Extracting\\Strategies\\ResponseFields\\GetFromResponseFieldTag',
+      ),
+    ),
+    'fractal' => 
+    array (
+      'serializer' => NULL,
+    ),
+    'routeMatcher' => 'Knuckles\\Scribe\\Matching\\RouteMatcher',
+    'continue_without_database_transactions' => 
+    array (
+    ),
+    'database_connections_to_transact' => 
+    array (
+      0 => 'mysql',
+    ),
+  ),
   'services' => 
   array (
     'mailgun' => 

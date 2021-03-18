@@ -15,29 +15,30 @@
         <form class="border border-light p-5" >
 
             <p class="h4 mb-4 text-center"><strong>FORM</strong></p>
-
+            <input  type="text" id='Id' class="form-control mb-4" placeholder="ID" >
             <input  type="text" id='first_name' class="form-control mb-4" placeholder="FIRST NAME" >
             <input  type="text" id='last_name' class="form-control mb-4" placeholder="LAST NAME" >
             <input  type="password" id='password' class="form-control mb-4" placeholder="PASSWORD" >
             <input  type="text" id='email' class="form-control mb-4" placeholder="EMAIL" >
             <input  type="text" id='phone' class="form-control mb-4" placeholder="PHONE" >
-            <button class="btn btn-dark-green btn-block my-4" style='background-color:green'  id='create' onclick="Create()" >Create</button>
-            <button class="btn btn-dark-green btn-block my-4" style='background-color:green' id='update' >Update</button>
+            <button class="btn btn-dark-green btn-block my-4" style='background-color:green'  id='create' onclick="Create()" type='click' >Create</button>
+            <button class="btn btn-dark-green btn-block my-4" style='background-color:green' id='update' onclick='Update()' type='click'>Update</button>
 
         </form>
         <p class="h4 mb-4 text-center"><strong>SEARCH ID</strong></p>
-        <input  type="text" name='filter' class="form-control mb-4" placeholder=" SEARCH ID" >
+        <input  type="text" id='filter' class="form-control mb-4" placeholder=" SEARCH ID" >
         <button class="btn btn-dark-green btn-block my-4" style='background-color:green' onclick="Search()" >Search</button>
+        <button class="btn btn-dark-green btn-block my-4" style='background-color:green' onclick="All()" >Get All</button>
         <table class="table">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">First</th>
                 <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Email</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id='tee'>
               <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
@@ -84,9 +85,12 @@
         var email=document.getElementById('email').value
         var phone=document.getElementById('phone').value
         var password=document.getElementById('password').value
+        var id=document.getElementById('Id').value
         async function Create(){
-           res= await axios.post('/api/users',{
-    first_name:document.getElementById('first_name').value,
+     event.preventDefault()
+          // e.preventDefault()
+     res= await axios.post('/api/users',{
+     first_name:document.getElementById('first_name').value,
      last_name:document.getElementById('last_name').value,
      email:document.getElementById('email').value,
      phone:document.getElementById('phone').value,
@@ -97,7 +101,31 @@
                             //return response
 
                             console.log(response)
-                          // wait(7000)
+                            //wait(10000)
+                         //   auth.login(response.data.token.access_token,response.data.user);
+                      //      this.$router.push('/index');
+                        } else {
+                            console.log(response)
+                        }
+                    })
+            return false
+
+        }
+        async function Update(){
+     event.preventDefault()
+     res= await axios.post('/api/users/'+id,{
+     first_name:document.getElementById('first_name').value,
+     last_name:document.getElementById('last_name').value,
+     email:document.getElementById('email').value,
+     phone:document.getElementById('phone').value,
+    // id:document.getElementById('Id').value,
+  //   _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+   }).then(response => {
+                        if (response.status==200) {
+                            //return response
+
+                            console.log(response)
+                           // wait(10000)
                          //   auth.login(response.data.token.access_token,response.data.user);
                       //      this.$router.push('/index');
                         } else {
@@ -106,7 +134,48 @@
                     })
 
         }
+        async function Search(){
+            var fil=document.getElementById('filter').value
+            console.log(fil)
+          //  wait(5000)
+          res= await  axios.get('/api/users/'+fil)
+          .then(response=>{
+            if (response.status==200) {
+                            //return response
 
+                            console.log(response)
+                            //wait(10000)
+                         //   auth.login(response.data.token.access_token,response.data.user);
+                      //      this.$router.push('/index');
+                        } else {
+                            console.log(response)
+                        }
+          })
+         // console.log(res)
+         // wait(6000)
+        }
+        function All(){
+       //     var fil=document.getElementById('filter').value
+           // console.log(fil)
+          //  wait(5000)
+          res=   axios.get('/api/users')
+          .then(response=>{
+            if (response.status==200) {
+                            //return response
+
+                            console.log(response)
+                           // var rett=JSON.parse(response.data)
+                         //  console.log(rett)
+                          //  wait(10000)
+                         //   auth.login(response.data.token.access_token,response.data.user);
+                      //      this.$router.push('/index');
+                        } else {
+                            console.log(response)
+                        }
+          })
+         // console.log(res)
+         // wait(6000)
+        }
     </script>
     </body>
 </html>

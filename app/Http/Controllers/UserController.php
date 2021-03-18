@@ -5,6 +5,7 @@ use App\Http\Requests\UserCreateRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\User;
 //use Illuminate\Http\Request;
@@ -14,25 +15,30 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
+use phpDocumentor\Reflection\Types\Resource_;
+
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
+
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index():JsonResponse
     {
         //
         $yo=User::paginate(3);
-        return response()->json($yo);
+        return response()->json($yo,200);
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
@@ -82,7 +88,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    /**
+     * destroy
+     *
+     * @param  mixed $id
+     * @return JsonResponse
+     */
+    public function destroy( int $id):JsonResponse
     {
         //
         //$user=User::destroy($id);
