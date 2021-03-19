@@ -163,7 +163,7 @@
                 {
                     disPrev="disabled"
                 }
-                else if(curr==myObjj.length-2)
+                if(curr==myObjj.length-2 )
                 {
                     disNex="disabled"
                 }
