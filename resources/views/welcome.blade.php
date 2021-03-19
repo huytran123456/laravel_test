@@ -158,11 +158,12 @@
                 console.log(curr)
                 idPrev=curr-1
                 idNex=curr+1
+                sty=""
                 if(curr==1)
                 {
                     disPrev="disabled"
                 }
-                if(curr==myObjj.length-1)
+                else if(curr==myObjj.length-2)
                 {
                     disNex="disabled"
                 }
@@ -172,7 +173,12 @@
                     if(x==0 ||x== myObjj.length-1){
                         continue
                     }
-                    html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+myObjj[x].label+" >" +  myObjj[x].label + "</button></li>";
+                    if(x==curr)
+                    {
+                        sty="style='background-color:red'"
+                    }
+                    html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+myObjj[x].label+" "+sty+" >" +  myObjj[x].label + "</button></li>";
+                    sty=""
                 }
                 html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+idNex+" "+disNex+" >" +  myObjj[myObjj.length-1].label + "</button></li>"
                // html += "</ul>";
@@ -190,9 +196,7 @@
                         }
           })
   }
-  function goPrev(ele){
 
-  }
        function Yo(ele) {
              event.preventDefault();
              var page = ele.id;
