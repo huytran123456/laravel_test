@@ -17,6 +17,7 @@
         "lodash": "^4.17.19",
         "popper.js": "^1.12",
         "postcss": "^8.1.14",
+        "resolve-url-loader": "^3.1.2",
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0"
     },
@@ -39,6 +40,7 @@
     },
     "homepage": "https://github.com/huytran123456/laravel_test#readme",
     "dependencies": {
+        "mix": "0.0.1",
         "paginationjs": "^2.1.5"
     }
 }

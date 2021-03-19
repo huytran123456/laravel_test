@@ -44,21 +44,14 @@
           </table>
           <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center" id='link_pa'>
-              <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-              </li>
 
-              <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-              </li>
             </ul>
           </nav>
         </div>
-        <div id="data-container"></div>
-<div id="pagination-container"></div>
-     <div id="link_page"></div>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/pagination.js"></script>
+
+     <script src="js/jquery.min.js"></script>
+
+     <script src="/js/pagination.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
@@ -133,20 +126,20 @@
         }
          function Search(){
             var fil=document.getElementById('filter').value
-            console.log(fil)
+            //console.log(fil)
           //  wait(5000)
-            makeRe('/'+fil)
+            makeRe('/'+fil,1)
 
          // console.log(res)
          // wait(6000)
         }
- async function makeRe(a){
+ async function makeRe(a,cur){
     res= await  axios.get('/api/users'+a)
           .then(response=>{
             if (response.status==200) {
                             //return response
 
-                            console.log(response)
+                         //   console.log(response)
                     myObj = response.data.data;
                       txt = "<tr>"
                     for (x in myObj) {
@@ -159,15 +152,36 @@
                 txt += "</table>"
                 html = "";
                 myObjj = response.data.links;
+                curr=parseInt(cur)
+                disPrev=""
+                disNex=""
+                console.log(curr)
+                idPrev=curr-1
+                idNex=curr+1
+                if(curr==1)
+                {
+                    disPrev="disabled"
+                }
+                if(curr==myObjj.length-1)
+                {
+                    disNex="disabled"
+                }
+                html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+idPrev+" "+disPrev+" >" +  myObjj[0].label + "</button></li>"
                 console.log(myObjj)
                 for(x in myObjj){
-                    html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+myObjj[x].label+" >" +  myObjj[x].label + "</a></li>";
+                    if(x==0 ||x== myObjj.length-1){
+                        continue
+                    }
+                    html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+myObjj[x].label+" >" +  myObjj[x].label + "</button></li>";
                 }
+                html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+idNex+" "+disNex+" >" +  myObjj[myObjj.length-1].label + "</button></li>"
                // html += "</ul>";
+                disNex=""
+                disPrev=""
                 document.getElementById("link_pa").innerHTML = html;
                 document.getElementById("Content_table").innerHTML = txt;
 
-                console.log((response.data))
+           //     console.log((response.data))
                             //wait(10000)
                          //   auth.login(response.data.token.access_token,response.data.user);
                       //      this.$router.push('/index');
@@ -176,12 +190,15 @@
                         }
           })
   }
+  function goPrev(ele){
+
+  }
        function Yo(ele) {
              event.preventDefault();
              var page = ele.id;
-             console.log(page)
+        //     console.log(page)
           //   wait(5000)
-             makeRe('?page='+page)
+             makeRe('?page='+page,ele.id)
        };
 
 
