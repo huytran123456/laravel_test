@@ -63,9 +63,10 @@ class UserController extends Controller
     public function show($id)
     {
         //
-        $user=User::where('id',$id)->get();
+        $user=DB::table('users')->where('id',$id)->paginate(15);
         $result=($user)?1:0;
-        return response()->json(['result'=>$result,'data'=>$user]);
+      //  return response()->json(['result'=>$result,'data'=>$user['data']]);
+       return response()->json($user);
     }
 
     /**

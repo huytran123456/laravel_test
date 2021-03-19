@@ -28,7 +28,6 @@
         <p class="h4 mb-4 text-center"><strong>SEARCH ID</strong></p>
         <input  type="text" id='filter' class="form-control mb-4" placeholder=" SEARCH ID" >
         <button class="btn btn-dark-green btn-block my-4" style='background-color:green' onclick="Search()" >Search</button>
-        <button class="btn btn-dark-green btn-block my-4" style='background-color:green' onclick="All()" >Get All</button>
         <table class="table">
             <thead>
               <tr>
@@ -38,14 +37,28 @@
                 <th scope="col">Email</th>
               </tr>
             </thead>
-            <tbody id='tee'>
+            <tbody id='Content_table'>
 
 
             </tbody>
           </table>
-        </div>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id='link_pa'>
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1">Previous</a>
+              </li>
 
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div id="data-container"></div>
+<div id="pagination-container"></div>
+     <div id="link_page"></div>
     <script src="js/jquery.min.js"></script>
+    <script src="js/pagination.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
@@ -118,42 +131,17 @@
                     })
 
         }
-        async function Search(){
+         function Search(){
             var fil=document.getElementById('filter').value
             console.log(fil)
           //  wait(5000)
-          res= await  axios.get('/api/users/'+fil)
-          .then(response=>{
-            if (response.status==200) {
-                            //return response
+            makeRe('/'+fil)
 
-                            console.log(response)
-                            myObj = response.data.data;
-                      txt = "<tr>"
-                    for (x in myObj) {
-                        txt +=  "<th scope='row'>"+  myObj[x].id + "</th>";
-                 txt += "<td>" + myObj[x].first_name + "</td>";
-                 txt += "<td>" + myObj[x].last_name + "</td>";
-                 txt += "<td>" + myObj[x].email + "</td>";
-                 txt+="</tr>"
-                      }
-                txt += "</table>"
-                document.getElementById("tee").innerHTML = txt;
-                            //wait(10000)
-                         //   auth.login(response.data.token.access_token,response.data.user);
-                      //      this.$router.push('/index');
-                        } else {
-                            console.log(response)
-                        }
-          })
          // console.log(res)
          // wait(6000)
         }
-      async  function All(){
-       //     var fil=document.getElementById('filter').value
-           // console.log(fil)
-          //  wait(5000)
-          res= await  axios.get('/api/users')
+ async function makeRe(a){
+    res= await  axios.get('/api/users'+a)
           .then(response=>{
             if (response.status==200) {
                             //return response
@@ -169,20 +157,34 @@
                  txt+="</tr>"
                       }
                 txt += "</table>"
-                document.getElementById("tee").innerHTML = txt;
-                           // var rett=JSON.parse(response.data)
-                         //  console.log(rett)
-                          //  wait(10000)
+                html = "";
+                myObjj = response.data.links;
+                console.log(myObjj)
+                for(x in myObjj){
+                    html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+myObjj[x].label+" >" +  myObjj[x].label + "</a></li>";
+                }
+               // html += "</ul>";
+                document.getElementById("link_pa").innerHTML = html;
+                document.getElementById("Content_table").innerHTML = txt;
+
+                console.log((response.data))
+                            //wait(10000)
                          //   auth.login(response.data.token.access_token,response.data.user);
                       //      this.$router.push('/index');
                         } else {
                             console.log(response)
                         }
           })
-         // console.log(res)
-         // wait(6000)
-            return
-        }
+  }
+       function Yo(ele) {
+             event.preventDefault();
+             var page = ele.id;
+             console.log(page)
+          //   wait(5000)
+             makeRe('?page='+page)
+       };
+
+
     </script>
     </body>
 </html>

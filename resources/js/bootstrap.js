@@ -7,6 +7,7 @@ window._ = require('lodash');
  */
 import axios from 'axios';
 window.axios = axios;
+//window.paginationjs=require('paginationjs')
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
