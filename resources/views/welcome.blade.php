@@ -155,7 +155,7 @@
                 curr=parseInt(cur)
                 disPrev=""
                 disNex=""
-                console.log(curr)
+             //   console.log(curr)
                 idPrev=curr-1
                 idNex=curr+1
                 sty=""
@@ -168,7 +168,7 @@
                     disNex="disabled"
                 }
                 html += "<li class='page-item'><button class='page-link' onclick='Yo(this)' id="+idPrev+" "+disPrev+" >" +  myObjj[0].label + "</button></li>"
-                console.log(myObjj)
+               // console.log(myObjj)
                 for(x in myObjj){
                     if(x==0 ||x== myObjj.length-1){
                         continue
