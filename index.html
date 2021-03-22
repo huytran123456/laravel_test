@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>LAB 5</title>
+
+        <!-- Fonts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    </head>
+    <body>
+      <a class="btn btn-primary" href="Create.html" role="button">Create</a>
+      <a class="btn btn-primary" href="Update.html" role="button">Update</a>
+        <div class=container-xl>
+        <p class="h4 mb-4 text-center"><strong>SEARCH ID</strong></p>
+        <input  type="text" id='filter' class="form-control mb-4" placeholder=" SEARCH ID" >
+        <button class="btn btn-dark-green btn-block my-4" style='background-color:green'  id='button_search'>Search</button>
+        <table class="table">
+            <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">First</th>
+                  <th scope="col">Last</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Phone</th>
+                </tr>
+              </thead>
+          </table>
+          <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id='link_pa'>
+
+            </ul>
+          </nav>
+        </div>
+
+     <script src="js/jquery.min.js"></script>
+
+    
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+     <link href="http://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+     <script src="http://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script type="text/javascript" >
+ //import axios from 'axios'
+  // const axios=require('axios').default
+  //const axios = require('axios')
+  function wait(ms){
+   var start = new Date().getTime();
+   var end = start;
+   while(end < start + ms) {
+     end = new Date().getTime();
+  }
+}
+  window.axios.defaults.headers.common = {
+    'X-Requested-With': 'XMLHttpRequest',
+    //'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    'Content-Type': 'application/json',
+};
+  //  var first_name=document.getElementById('first_name').value
+  //       var last_name=document.getElementById('last_name').value
+  //       var email=document.getElementById('email').value
+  //       var phone=document.getElementById('phone').value
+  //       var password=document.getElementById('password').value
+  //       var id=document.getElementById('Id').value
+  //       async function Create(){
+  //    event.preventDefault()
+  //         // e.preventDefault()
+  //    res= await axios.post('/api/users',{
+  //    first_name:document.getElementById('first_name').value,
+  //    last_name:document.getElementById('last_name').value,
+  //    email:document.getElementById('email').value,
+  //    phone:document.getElementById('phone').value,
+  //    password:document.getElementById('password').value,
+  // //   _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+  //  }).then(response => {
+  //                       if (response.status==200) {
+  //                           //return response
+
+  //                           console.log(response)
+  //                           //wait(10000)
+  //                        //   auth.login(response.data.token.access_token,response.data.user);
+  //                     //      this.$router.push('/index');
+  //                       } else {
+  //                           console.log(response)
+  //                       }
+  //                   })
+  //           return false
+
+  //       }
+       
+$(document).ready(
+  $('#button_search').click(function(){
+    axios.get('http://127.0.0.1:8000/api/users')
+  .then(function (response) {
+    console.log(response);
+    $('.table').DataTable({
+    "data": response.data,
+    "columns": [
+    { "data": "id" },
+      { "data": "first_name" },
+      { "data": "last_name" },
+      { "data": "email" },
+      { "data": "phone" },
+    ]
+});
+  })}))
+  
+ 
+
+    </script>
+    </body>
+</html>
